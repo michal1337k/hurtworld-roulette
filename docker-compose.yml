@@ -36,6 +36,8 @@ services:
     image: node:20
     container_name: roulette_node
     working_dir: /app
+    ports:
+      - "5173:5173"
     volumes:
       - ./frontend:/app
     command: tail -f /dev/null
