@@ -26,6 +26,7 @@ class UserController extends AbstractController
             'nickname' => $user->getNickname(),
             'avatar' => $user->getAvatar(),
             'balance' => $user->getBalance(),
+            'roles' => $user->getRoles(),
         ]);
     }
 }
