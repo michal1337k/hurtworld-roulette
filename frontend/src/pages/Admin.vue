@@ -2,11 +2,6 @@
   <div>
     <h1>Admin Panel</h1>
 
-    <button @click="$router.push('/')">
-       Strona Główna
-    </button>
-
-
     <h2>🎰 Items (Roulette)</h2>
     <button @click="$router.push('/acp/add-item')">
         ➕ Dodaj item
