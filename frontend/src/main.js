@@ -2,22 +2,28 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import { auth } from './store/auth'
+import { API_URL } from './config/api'
 import './style.css'
 
-async function loadUser() {
-  const res = await fetch('http://localhost:8080/api/me', {
-    credentials: 'include'
-  })
+const app = createApp(App)
 
-  if (res.ok) {
-    auth.user = await res.json()
+async function init() {
+  try {
+    const res = await fetch(`${API_URL}/api/me`, {
+      credentials: 'include'
+    })
+
+    if (res.ok) {
+      auth.user = await res.json()
+    }
+  } catch (e) {
+    console.log('not logged in')
   }
 
   auth.loaded = true
+
+  app.use(router)
+  app.mount('#app')
 }
 
-loadUser().then(() => {
-  createApp(App)
-    .use(router)
-    .mount('#app')
-})
+init()

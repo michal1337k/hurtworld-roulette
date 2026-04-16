@@ -3,14 +3,12 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../pages/Home.vue'
 import Admin from '../pages/Admin.vue'
 import AddItem from '../pages/AddItem.vue'
-import EditItem from '../pages/EditItem.vue'
 import { auth } from '../store/auth'
 
 const routes = [
   { path: '/', component: Home },
   { path: '/acp', component: Admin, meta: { requiresAuth: true, requiresAdmin: true }},
   { path: '/acp/add-item', component: AddItem, meta: { requiresAuth: true, requiresAdmin: true } },
-  { path: '/acp/edit-item/:id', component: EditItem, meta: { requiresAuth: true, requiresAdmin: true } }
 ]
 
 const router = createRouter({
@@ -20,7 +18,7 @@ const router = createRouter({
 
 router.beforeEach((to, from) => {
 
-  if (!auth.loaded) return true
+  if (!auth.loaded) return false
 
   const isLogged = !!auth.user
   const isAdmin = auth.user?.roles?.includes('ROLE_ADMIN')

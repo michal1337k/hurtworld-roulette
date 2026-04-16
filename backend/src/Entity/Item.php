@@ -30,6 +30,12 @@ class Item
     #[ORM\OneToMany(targetEntity: Inventory::class, mappedBy: 'item')]
     private Collection $inventories;
 
+    #[ORM\Column]
+    private ?int $count = null;
+
+    #[ORM\Column(length: 20)]
+    private ?string $rarity = 'common';
+
     public function __construct()
     {
         $this->inventories = new ArrayCollection();
@@ -102,6 +108,30 @@ class Item
                 $inventory->setItem(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCount(): ?int
+    {
+        return $this->count;
+    }
+
+    public function setCount(int $count): static
+    {
+        $this->count = $count;
+
+        return $this;
+    }
+
+    public function getRarity(): ?string
+    {
+        return $this->rarity;
+    }
+
+    public function setRarity(string $rarity): static
+    {
+        $this->rarity = $rarity;
 
         return $this;
     }
