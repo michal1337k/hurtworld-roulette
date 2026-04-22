@@ -50,6 +50,12 @@
                     {{ sortDir === 'asc' ? '▲' : '▼' }}
                   </span>
                 </th>
+                <th @click="sortBy('game_item_id')" class="sortable">
+                  Id przedmiotu w grze
+                  <span v-if="sortKey === 'game_item_id'">
+                    {{ sortDir === 'asc' ? '▲' : '▼' }}
+                  </span>
+                </th>
                 <th>Akcje</th>
                 </tr>
             </thead>
@@ -112,6 +118,15 @@
                       <option value="legendary">Legendarny</option>
                     </select>
                   </td>
+
+                  <!-- GAME ITEM ID -->
+                  <td>
+                    <span v-if="editingId !== item.id">
+                      {{ item.game_item_id }}
+                    </span>
+
+                    <input v-else v-model="editedItem.game_item_id" />
+                  </td>
                   <!-- AKCJE -->
                   <td>
                     <button v-if="editingId !== item.id" @click="startEdit(item)">
@@ -142,28 +157,16 @@
 import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { API_URL } from '../config/api'
+import { useItems } from '../composables/useItems'
+
 
 const router = useRouter()
-const items = ref([])
-const loading = ref(true)
+
 const editingId = ref(null)
 const editedItem = ref({})
-
+const { items, loadItems, resetItems, loading } = useItems()
 const sortKey = ref(null)
 const sortDir = ref('asc')
-
-
-async function loadItems() {
-  loading.value = true
-
-  const res = await fetch(`${API_URL}/api/admin/items`, {
-    credentials: 'include'
-  })
-
-  items.value = await res.json()
-
-  loading.value = false
-}
 
 function editItem(item) {
   router.push(`/acp/edit-item/${item.id}`)
@@ -192,6 +195,7 @@ async function saveEdit(id) {
   formData.append('name', editedItem.value.name)
   formData.append('chance', editedItem.value.chance)
   formData.append('count', editedItem.value.count)
+  formData.append('game_item_id', editedItem.value.game_item_id)
   formData.append('rarity', editedItem.value.rarity)
 
   if (editedItem.value.file) {
@@ -211,6 +215,7 @@ async function saveEdit(id) {
   }
 
   editingId.value = null
+  resetItems()
   loadItems()
 }
 
@@ -272,6 +277,7 @@ async function confirmDelete(item) {
     return
   }
 
+  resetItems()
   loadItems()
 }
 
@@ -280,100 +286,3 @@ function cancelEdit() {
   editedItem.value = {}
 }
 </script>
-
-
-<style scoped>
-.items-table {
-  width: 100%;
-  margin-top: 20px;
-  border-collapse: collapse;
-  font-family: Arial, sans-serif;
-}
-
-.items-table thead tr {
-  border-bottom: 2px solid #ddd;
-}
-
-.items-table th,
-.items-table td {
-  padding: 12px 10px;
-  text-align: left;
-}
-
-.items-table tbody tr:hover {
-  background: #221536;
-}
-
-.loader {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 50px;
-  gap: 10px;
-}
-
-.spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid #444;
-  border-top: 4px solid #fff;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.sortable {
-  cursor: pointer;
-  user-select: none;
-}
-
-.sortable:hover {
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.icon-wrapper {
-  width: 60px;
-  height: 60px;
-  border-radius: 8px;
-  background: #47454536;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-
-  border: 2px solid #757575; 
-}
-
-.icon-wrapper img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-.icon-wrapper.rarity-common {
-  border-color: #9e9e9e;
-}
-
-.icon-wrapper.rarity-uncommon {
-  border-color: #4caf50;
-}
-
-.icon-wrapper.rarity-rare {
-  border-color: #2196f3;
-}
-
-.icon-wrapper.rarity-epic {
-  border-color: #9c27b0;
-  box-shadow: 0 0 6px #9c27b0;
-}
-
-.icon-wrapper.rarity-legendary {
-  border-color: #ffc107;
-  box-shadow: 0 0 10px #ffc107;
-}
-</style>

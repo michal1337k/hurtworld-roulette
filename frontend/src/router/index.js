@@ -3,10 +3,12 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../pages/Home.vue'
 import Admin from '../pages/Admin.vue'
 import AddItem from '../pages/AddItem.vue'
+import Inventory from '../pages/Inventory.vue'
 import { auth } from '../store/auth'
 
 const routes = [
   { path: '/', component: Home },
+  { path: '/inventory', component: Inventory, meta: { requiresAuth: true, requiresAdmin: false } },
   { path: '/acp', component: Admin, meta: { requiresAuth: true, requiresAdmin: true }},
   { path: '/acp/add-item', component: AddItem, meta: { requiresAuth: true, requiresAdmin: true } },
 ]

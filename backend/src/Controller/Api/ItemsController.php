@@ -30,6 +30,7 @@ final class ItemsController extends AbstractController
             'chance' => $item->getChance(),
             'rarity' => $item->getRarity(),
             'count' => $item->getCount(),
+            'game_item_id' => $item->getGameItemId(),
             'icon' => $item->getIcon(),
         ], $items));
         
@@ -43,6 +44,7 @@ final class ItemsController extends AbstractController
         $chance = $request->request->get('chance');
         $rarity = $request->request->get('rarity', ItemRarity::COMMON);
         $count = $request->request->get('count');
+        $gameid = $request->request->get('game_item_id');
 
         $validator->assertValid($chance);
 
@@ -70,6 +72,7 @@ final class ItemsController extends AbstractController
         $item->setChance((float)$chance);
         $item->setRarity($rarity);
         $item->setCount($count);
+        $item->setGameItemId($gameid);
         $item->setIcon('/uploads/icons/' . $filename);
 
         $em->persist($item);
@@ -91,6 +94,7 @@ final class ItemsController extends AbstractController
         $chance = $request->request->get('chance');
         $rarity = $request->request->get('rarity');
         $count = $request->request->get('count');
+        $gameid = $request->request->get('game_item_id');
 
         if ($name) {
             $item->setName($name);
@@ -110,6 +114,10 @@ final class ItemsController extends AbstractController
 
         if ($count) {
             $item->setCount($count);
+        }
+
+        if ($gameid) {
+            $item->setGameItemId($gameid);
         }
 
         $file = $request->files->get('icon');

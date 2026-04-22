@@ -26,9 +26,11 @@
           </div>
         </div>
 
-        <button> <!-- inventory todo -->
+        <a href="/inventory">
+          <button>
             🎒
-        </button>
+          </button>
+        </a>
         <button class="logout" @click="logout">
           ⏻
         </button>

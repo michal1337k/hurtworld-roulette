@@ -16,6 +16,9 @@
 
       Ilość:
       <input v-model="count" type="number" placeholder="Ilość" />
+      
+      Id przedmiotu w grze:
+      <input v-model="gameitemid" placeholder="Id przedmiotu w grze" />
       <button>Dodaj</button>
     </form>
 
@@ -33,6 +36,7 @@ const chance = ref(0)
 const file = ref(null)
 const rarity = ref('common')
 const count = ref(1)
+const gameitemid = ref(0)
 
 
 function onFileChange(e) {
@@ -46,7 +50,8 @@ async function submit() {
   formData.append('chance', chance.value)
   formData.append('rarity', rarity.value)
   formData.append('count', count.value)
-
+  formData.append('game_item_id', gameitemid.value)
+  
   if (file.value) {
     formData.append('icon', file.value)
   }
@@ -68,6 +73,7 @@ async function submit() {
   file.value = null
   rarity.value = 'common'
   count.value = 1
+  gameitemid.value = 0
 
   alert('Dodano item')
 }

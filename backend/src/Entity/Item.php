@@ -36,6 +36,9 @@ class Item
     #[ORM\Column(length: 20)]
     private ?string $rarity = 'common';
 
+    #[ORM\Column(name: 'game_item_id')]
+    private ?int $gameItemId = null;
+
     public function __construct()
     {
         $this->inventories = new ArrayCollection();
@@ -132,6 +135,18 @@ class Item
     public function setRarity(string $rarity): static
     {
         $this->rarity = $rarity;
+
+        return $this;
+    }
+
+    public function getGameItemId(): ?int
+    {
+        return $this->gameItemId;
+    }
+
+    public function setGameItemId(int $gameItemId): static
+    {
+        $this->gameItemId = $gameItemId;
 
         return $this;
     }
