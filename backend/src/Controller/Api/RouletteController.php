@@ -59,6 +59,7 @@ final class RouletteController extends AbstractController
             'id' => $wonItem->getId(),
             'name' => $wonItem->getName(),
             'icon' => $wonItem->getIcon(),
+            'count' => $wonItem->getCount(),
             'rarity' => $wonItem->getRarity()
         ]);
     }

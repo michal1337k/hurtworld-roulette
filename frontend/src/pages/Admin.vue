@@ -1,11 +1,30 @@
 <template>
-  <div>
-    <h1>Admin Panel</h1>
+<div class="admin-page">
+  <header class="admin-header">
+    <h1 class="admin-title">Admin Panel</h1>
+    <p class="admin-subtitle">Lista przedmiotów w bazie ruletki</p>
 
-    <h2>🎰 Items (Roulette)</h2>
-    <button @click="$router.push('/acp/add-item')">
-        ➕ Dodaj item
+    <button class="admin-add-button" @click="$router.push('/acp/add-item')">
+      ➕ Dodaj przedmiot
     </button>
+    <br>
+    <div class="chance-summary">
+      <div>
+        Łączna szansa dropu:
+        <strong :class="{ danger: totalChance > 100 }">
+          {{ totalChance.toFixed(2) }}%
+        </strong>
+      </div>
+
+      <div>
+        Pozostało:
+        <strong>
+          {{ chanceLeft.toFixed(2) }}%
+        </strong>
+      </div>
+    </div>
+
+  </header>
 
     <!-- LOADING -->
     <div v-if="loading" class="loader">
@@ -18,139 +37,167 @@
       brak przedmiotów w ruletce
     </p>
 
-    <div v-else>
-        <div class="p-6">
-            <table class="items-table">
-            <thead>
-                <tr>
-                <th>Ikona</th>
-                <th @click="sortBy('name')" class="sortable">
-                  Nazwa
-                  <span v-if="sortKey === 'name'">
-                    {{ sortDir === 'asc' ? '▲' : '▼' }}
-                  </span>
-                </th>
+  <div v-else class="admin-table-wrapper">
+    <table class="items-table">
+      <thead>
+          <tr>
+          <th>Ikona</th>
+          <th @click="sortBy('name')" class="sortable">
+            Nazwa
+            <span v-if="sortKey === 'name'">
+              {{ sortDir === 'asc' ? '▲' : '▼' }}
+            </span>
+          </th>
 
-                <th @click="sortBy('chance')" class="sortable">
-                  Szansa %
-                  <span v-if="sortKey === 'chance'">
-                    {{ sortDir === 'asc' ? '▲' : '▼' }}
-                  </span>
-                </th>
-                <th @click="sortBy('count')" class="sortable">
-                  Ilość
-                  <span v-if="sortKey === 'count'">
-                    {{ sortDir === 'asc' ? '▲' : '▼' }}
-                  </span>
-                </th>
+          <th @click="sortBy('chance')" class="sortable">
+            Szansa %
+            <span v-if="sortKey === 'chance'">
+              {{ sortDir === 'asc' ? '▲' : '▼' }}
+            </span>
+          </th>
+          <th @click="sortBy('count')" class="sortable">
+            Ilość
+            <span v-if="sortKey === 'count'">
+              {{ sortDir === 'asc' ? '▲' : '▼' }}
+            </span>
+          </th>
 
-                <th @click="sortBy('rarity')" class="sortable">
-                  Rzadkość
-                  <span v-if="sortKey === 'rarity'">
-                    {{ sortDir === 'asc' ? '▲' : '▼' }}
-                  </span>
-                </th>
-                <th @click="sortBy('game_item_id')" class="sortable">
-                  Id przedmiotu w grze
-                  <span v-if="sortKey === 'game_item_id'">
-                    {{ sortDir === 'asc' ? '▲' : '▼' }}
-                  </span>
-                </th>
-                <th>Akcje</th>
-                </tr>
-            </thead>
+          <th @click="sortBy('rarity')" class="sortable">
+            Rzadkość
+            <span v-if="sortKey === 'rarity'">
+              {{ sortDir === 'asc' ? '▲' : '▼' }}
+            </span>
+          </th>
+          <th @click="sortBy('game_item_id')" class="sortable">
+            Id przedmiotu w grze
+            <span v-if="sortKey === 'game_item_id'">
+              {{ sortDir === 'asc' ? '▲' : '▼' }}
+            </span>
+          </th>
+          <th>Akcje</th>
+          </tr>
+      </thead>
 
-            <tbody>
-                <tr v-for="item in sortedItems" :key="item.id">
-                  <!-- IKONA -->
-                <td>
-                  <div
-                    class="icon-wrapper"
-                    :class="`rarity-${item.rarity || 'common'}`"
-                  >
-                    <img :src="getIcon(item.icon)" />
-                  </div>
-                  <input
-                    v-if="editingId === item.id"
-                    type="file"
-                    @change="e => onFileChange(e, item.id)"
-                  />
-                </td>
+      <tbody>
+          <tr v-for="item in sortedItems" :key="item.id">
+            <!-- IKONA -->
+          <td>
+            <div
+              class="icon-wrapper"
+              :class="`rarity-${item.rarity || 'common'}`"
+            >
+              <img :src="getIcon(item.icon)" />
+            </div>
+            <input
+              v-if="editingId === item.id"
+              type="file"
+              @change="e => onFileChange(e, item.id)"
+            />
+          </td>
 
-                  <!-- NAZWA -->
-                  <td>
-                    <span v-if="editingId !== item.id">
-                      {{ item.name }}
-                    </span>
+            <!-- NAZWA -->
+            <td>
+              <span v-if="editingId !== item.id">
+                {{ item.name }}
+              </span>
 
-                    <input v-else v-model="editedItem.name" />
-                  </td>
+              <input v-else v-model="editedItem.name" />
+            </td>
 
-                  <!-- CHANCE -->
-                  <td>
-                    <span v-if="editingId !== item.id">
-                      {{ item.chance }}%
-                    </span>
+            <!-- CHANCE -->
+            <td>
+              <span v-if="editingId !== item.id">
+                {{ item.chance }}%
+              </span>
 
-                    <input v-else type="number" v-model="editedItem.chance" />
-                  </td>
+              <input v-else type="number" v-model="editedItem.chance" />
+            </td>
 
-                  <!-- COUNT -->
-                  <td>
-                    <span v-if="editingId !== item.id">
-                      {{ item.count }}
-                    </span>
+            <!-- COUNT -->
+            <td>
+              <span v-if="editingId !== item.id">
+                {{ item.count }}
+              </span>
 
-                    <input v-else type="number" v-model="editedItem.count" />
-                  </td>
+              <input v-else type="number" v-model="editedItem.count" />
+            </td>
 
-                  <!-- RARITY -->
-                  <td>
-                    <span v-if="editingId !== item.id">
-                      {{ item.rarity }}
-                    </span>
+            <!-- RARITY -->
+            <td>
+              <span v-if="editingId !== item.id">
+                {{ item.rarity }}
+              </span>
 
-                    <select v-else v-model="editedItem.rarity">
-                      <option value="common">Zwykły</option>
-                      <option value="uncommon">Niezwykły</option>
-                      <option value="rare">Rzadki</option>
-                      <option value="epic">Epicki</option>
-                      <option value="legendary">Legendarny</option>
-                    </select>
-                  </td>
+              <select v-else v-model="editedItem.rarity">
+                <option value="common">Zwykły</option>
+                <option value="uncommon">Niezwykły</option>
+                <option value="rare">Rzadki</option>
+                <option value="epic">Epicki</option>
+                <option value="legendary">Legendarny</option>
+              </select>
+            </td>
 
-                  <!-- GAME ITEM ID -->
-                  <td>
-                    <span v-if="editingId !== item.id">
-                      {{ item.game_item_id }}
-                    </span>
+            <!-- GAME ITEM ID -->
+            <td>
+              <span v-if="editingId !== item.id">
+                {{ item.game_item_id }}
+              </span>
 
-                    <input v-else v-model="editedItem.game_item_id" />
-                  </td>
-                  <!-- AKCJE -->
-                  <td>
-                    <button v-if="editingId !== item.id" @click="startEdit(item)">
-                      ✏️
-                    </button>
-                    <button v-if="editingId !== item.id" @click="confirmDelete(item)">
-                      🗑️
-                    </button>
-                    <template v-else>
-                      <button @click="saveEdit(item.id)">
-                        💾
-                      </button>
-                      <button @click="cancelEdit">
-                        ❌
-                      </button>
-                    </template>
-                  </td>
-                </tr>
-            </tbody>
-            </table>
+              <input v-else v-model="editedItem.game_item_id" />
+            </td>
+            <!-- AKCJE -->
+            <td class="actions-cell">
+              <template v-if="editingId !== item.id">
+                <button class="table-action edit" @click="startEdit(item)">
+                  ✏️
+                </button>
 
-        </div>
+                <button class="table-action delete" @click="openDeleteModal(item)">
+                  ⛔
+                </button>
+              </template>
+
+              <template v-else>
+                <button class="table-action save" @click="saveEdit(item.id)">
+                  💾
+                </button>
+
+                <button class="table-action cancel" @click="cancelEdit">
+                  ✖
+                </button>
+              </template>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+          
+  </div>
+</div>
+
+<!-- POPUP WINDOW -->
+<div v-if="deleteModal" class="modal-backdrop">
+  <div class="confirm-modal">
+    <button class="modal-close" @click="closeDeleteModal">×</button>
+
+    <h2>Potwierdzenie</h2>
+
+    <p>
+      Czy na pewno usunąć przedmiot:
+      <strong>{{ deleteModal.name }}</strong>?
+    </p>
+
+    <div class="modal-actions">
+      <button class="modal-ok danger" @click="deleteItem">
+        Tak, usuń
+      </button>
+
+      <button class="modal-secondary" @click="closeDeleteModal">
+        Nie
+      </button>
     </div>
   </div>
+</div>
 </template>
 
 <script setup>
@@ -167,6 +214,17 @@ const editedItem = ref({})
 const { items, loadItems, resetItems, loading } = useItems()
 const sortKey = ref(null)
 const sortDir = ref('asc')
+const deleteModal = ref(null)
+
+const totalChance = computed(() => {
+  return items.value.reduce((sum, item) => {
+    return sum + Number(item.chance)
+  }, 0)
+})
+
+const chanceLeft = computed(() => {
+  return Math.max(0, 100 - totalChance.value)
+})
 
 function editItem(item) {
   router.push(`/acp/edit-item/${item.id}`)
@@ -261,12 +319,18 @@ const sortedItems = computed(() => {
   })
 })
 
-async function confirmDelete(item) {
-  const ok = confirm(`Na pewno usunąć item: ${item.name}?`)
+function openDeleteModal(item) {
+  deleteModal.value = item
+}
 
-  if (!ok) return
+function closeDeleteModal() {
+  deleteModal.value = null
+}
 
-  const res = await fetch(`${API_URL}/api/admin/delete-item/${item.id}`, {
+async function deleteItem() {
+  if (!deleteModal.value) return
+
+  const res = await fetch(`${API_URL}/api/admin/delete-item/${deleteModal.value.id}`, {
     method: 'DELETE',
     credentials: 'include'
   })
@@ -277,6 +341,7 @@ async function confirmDelete(item) {
     return
   }
 
+  closeDeleteModal()
   resetItems()
   loadItems()
 }

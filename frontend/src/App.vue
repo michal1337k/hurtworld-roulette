@@ -1,6 +1,7 @@
 <script setup>
 import { auth } from './store/auth'
 import Navbar from './components/Navbar.vue'
+import Footer from './components/Footer.vue'
 </script>
 
 <template>
@@ -8,9 +9,12 @@ import Navbar from './components/Navbar.vue'
     Loading...
   </div>
 
-  <div v-else>
+  <div v-else class="app-shell">
     <Navbar />
-    <router-view />
+    <main class="app-main">
+      <router-view />
+    </main>
+    <Footer />
   </div>
 </template>
 

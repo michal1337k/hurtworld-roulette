@@ -1,31 +1,61 @@
 <template>
-<h1>Ekwipunek</h1>
-<div v-if="loading" class="loader">
-  <div class="spinner"></div>
-  <p>Ładowanie itemów...</p>
-</div>
+  <div class="inventory-page">
+    <header class="inventory-header">
+      <h1 class="admin-title">Ekwipunek</h1>
+      <p class="admin-subtitle">Twoje wygrane przedmioty</p>
+    </header>
 
-<div v-else>
-    <div class="inventory">
-        <div
-        v-for="(slot, index) in slots"
-        :key="index"
-        class="slot"
-        >
-            <div
-                v-if="slot"
-                class="item"
-                :class="`rarity-${slot.rarity}`"
-            >
-                <img :src="getIcon(slot.icon)" />
+    <section class="inventory-info">
+      <p>Przedmioty można odebrać w grze za pomocą komendy:</p>
 
-                <div class="count">
-                x{{ slot.count }}
-                </div>
-            </div>
-        </div>
+      <ul>
+        <li>
+          <code>/ruletka odbierz all</code>
+          <span>odbiera wszystkie przedmioty, maksymalnie 5 na raz</span>
+        </li>
+
+        <li>
+          <code>/ruletka odbierz &lt;nazwa&gt; &lt;ilosc&gt;</code>
+          <span>odbiera określony przedmiot po nazwie oraz określoną ilość</span>
+        </li>
+      </ul>
+
+      <p class="inventory-hint">
+        Nazwę przedmiotu zobaczysz po najechaniu na ikonę w ekwipunku.
+      </p>
+    </section>
+
+    <div v-if="loading" class="loader">
+      <div class="spinner"></div>
+      <p>Ładowanie ekwipunku...</p>
     </div>
-</div>
+
+    <div v-else class="inventory-wrapper">
+      <div class="inventory">
+        <div
+          v-for="(slot, index) in slots"
+          :key="index"
+          class="slot"
+        >
+          <div
+            v-if="slot"
+            class="item inventory-item"
+            :class="`rarity-${slot.rarity}`"
+          >
+            <div class="item-tooltip">
+              {{ slot.name }}
+            </div>
+
+            <img :src="getIcon(slot.icon)" />
+
+            <div class="count">
+              x{{ slot.count }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 <script setup>
 import { ref, onMounted, computed } from 'vue'

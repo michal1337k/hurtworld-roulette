@@ -22,16 +22,15 @@
           </div>
 
           <div class="balance">
-            💰 {{ formatBalance(auth.user.balance) }}
+            {{ formatBalance(auth.user.balance) }}
           </div>
         </div>
 
-        <a href="/inventory">
-          <button>
-            🎒
-          </button>
-        </a>
-        <button class="logout" @click="logout">
+        <router-link to="/inventory" class="icon-btn">
+          📦
+        </router-link>
+
+        <button class="icon-btn logout" @click="logout">
           ⏻
         </button>
         
@@ -66,101 +65,136 @@ function logout() {
 }
 
 function formatBalance(value) {
-  if (value === null || value === undefined) return '0,00$'
+  if (value === null || value === undefined) return '0,00 zł'
 
-  return (value / 100)
-    .toFixed(2)
-    .replace('.', ',') + '$'
+  return new Intl.NumberFormat('pl-PL', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  }).format(value / 100) + ' zł'
 }
 
 </script>
 
 <style>
+/* ================= NAVBAR ================= */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  padding: 12px 20px;
-  background: #1f1f1f7c;
+  padding: 14px 24px;
+  background: rgba(20, 20, 25, 0.8);
+  backdrop-filter: blur(10px);
+
   border-bottom: 1px solid #333;
   color: #fff;
-  font-family: Arial, sans-serif;
 }
 
-/* LEFT SIDE */
+/* LEFT */
 .left {
   display: flex;
-  gap: 16px;
+  gap: 20px;
   align-items: center;
 }
 
-/* RIGHT SIDE */
-.right {
-  display: flex;
-  align-items: center;
-}
-
-/* LINKS */
+/* LINKI */
 .navbar a {
   color: white;
   text-decoration: none;
   opacity: 0.8;
   transition: 0.2s;
+  font-weight: 500;
 }
 
 .navbar a:hover {
   opacity: 1;
+  transform: translateY(-1px);
 }
 
-/* USER BLOCK */
+/* RIGHT */
+.right {
+  display: flex;
+  align-items: center;
+}
+
+/* USER */
 .user {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 14px;
 }
 
 /* AVATAR */
 .avatar {
-  width: 40px;
-  height: 40px;
+  width: 48px;   /* większy */
+  height: 48px;
   border-radius: 50%;
-  border: 2px solid #444;
+  border: 2px solid #555;
+  transition: 0.2s;
 }
 
-/* NAME + BALANCE */
+.avatar:hover {
+  border-color: #888;
+}
+
+/* INFO */
 .info {
   display: flex;
   flex-direction: column;
-  font-size: 12px;
+  gap: 2px;
 }
 
+/* NAME */
 .name {
-  font-weight: bold;
+  font-weight: 600;
+  font-size: 14px;
 }
 
+/* BALANCE */
 .balance {
-  opacity: 0.8;
+  font-size: 13px;
+  color: #4caf50;        /* zielony */
+  font-weight: 700;      /* pogrubienie */
 }
 
-/* LOGOUT BUTTON */
-.logout {
-  background: transparent;
+/* IKONKI (inventory + logout) */
+.icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+
+  border-radius: 8px;
   border: 1px solid #444;
+  background: transparent;
   color: white;
-  padding: 4px 8px;
-  border-radius: 6px;
+
   cursor: pointer;
+  transition: 0.2s;
 }
 
-.logout:hover {
+.icon-btn:hover {
   background: #222;
+  transform: scale(1.05);
+}
+
+/* LOGOUT specjalny */
+.logout:hover {
+  background: #3a1f1f;
+  border-color: #aa4444;
 }
 
 /* LOGIN */
 .login {
-  padding: 6px 10px;
+  padding: 8px 14px;
   border: 1px solid #555;
-  border-radius: 6px;
+  border-radius: 8px;
+  transition: 0.2s;
+}
+
+.login:hover {
+  background: #222;
 }
 </style>

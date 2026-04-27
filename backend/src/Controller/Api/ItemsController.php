@@ -41,21 +41,27 @@ final class ItemsController extends AbstractController
     {
 
         $name = $request->request->get('name');
-        $chance = $request->request->get('chance');
+        $chance = (float) $request->request->get('chance');
         $rarity = $request->request->get('rarity', ItemRarity::COMMON);
         $count = $request->request->get('count');
         $gameid = $request->request->get('game_item_id');
 
-        $validator->assertValid($chance);
+        try {
+            $validator->assertValid($chance);
+        } catch (\RuntimeException $e) {
+            return $this->json([
+                'error' => $e->getMessage(),
+            ], 400);
+        }
 
         $file = $request->files->get('icon');
 
         if (!$file) {
-            return $this->json(['error' => 'No file'], 400);
+            return $this->json(['error' => 'Brak pliku z ikoną'], 400);
         }
 
         if (!in_array($rarity, ItemRarity::ALL, true)) {
-            return $this->json(['error' => 'Invalid rarity'], 400);
+            return $this->json(['error' => 'Nieprawidłowa rzadkość'], 400);
         }
 
         $extension = $file->guessExtension() ?: 'png';
@@ -69,7 +75,7 @@ final class ItemsController extends AbstractController
 
         $item = new Item();
         $item->setName($name);
-        $item->setChance((float)$chance);
+        $item->setChance($chance);
         $item->setRarity($rarity);
         $item->setCount($count);
         $item->setGameItemId($gameid);
@@ -101,8 +107,17 @@ final class ItemsController extends AbstractController
         }
 
         if ($chance !== null) {
-            $validator->assertValid((float)$chance, $item);
-            $item->setChance((float)$chance);
+            $chance = (float) $chance;
+
+            try {
+                $validator->assertValid($chance, $item);
+            } catch (\RuntimeException $e) {
+                return $this->json([
+                    'error' => $e->getMessage(),
+                ], 400);
+            }
+
+            $item->setChance($chance);
         }
 
         if ($rarity !== null) {
@@ -112,11 +127,11 @@ final class ItemsController extends AbstractController
             $item->setRarity($rarity);
         }
 
-        if ($count) {
+        if ($count !== null) {
             $item->setCount($count);
         }
 
-        if ($gameid) {
+        if ($gameid !== null) {
             $item->setGameItemId($gameid);
         }
 

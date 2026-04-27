@@ -15,21 +15,23 @@ class ItemChanceValidator
     {
         $items = $this->itemRepository->findAll();
 
-        $sum = 0;
+        $sum = 0.0;
 
         foreach ($items as $item) {
-
             if ($ignoreItem && $item->getId() === $ignoreItem->getId()) {
                 continue;
             }
 
-            $sum += $item->getChance();
+            $sum += (float) $item->getChance();
         }
 
-        $sum += $newChance;
+        $newTotal = $sum + $newChance;
 
-        if ($sum > 100) {
-            throw new \RuntimeException('Suma nie może przekroczyć 100%');
+        if ($newTotal > 100) {
+            throw new \RuntimeException(sprintf(
+                'Nie można zapisać itemu, ponieważ łączna ilość szans na drop wynosiłaby %.2f%%, a maksymalnie może wynosić 100%%.',
+                $newTotal
+            ));
         }
     }
 }
