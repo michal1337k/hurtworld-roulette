@@ -25,17 +25,21 @@ Users can roll items, manage inventory, and admins can configure drop chances vi
 👉 YouTube demo:
 [didnt record this yet lol]
 
-### Screenshots
-- 🎰 Roulette view
-![roulette](screenshots/main.png)
-- 🎰 Roulette view logout
-![roulette](screenshots/main_logout.png)
-- 📦 Inventory
-![roulette](screenshots/inventory.png)
-- ⚙️ Admin Panel (ACP)
-![roulette](screenshots/acp.png)
-- ⚙️ Add Item (ACP)
-![roulette](screenshots/acp_add_item.png)
+### 📸 Screenshots
+
+<p align="center">
+  <img src="screenshots/main.png" width="45%" />
+  <img src="screenshots/main_logout.png" width="45%" />
+</p>
+
+<p align="center">
+  <img src="screenshots/inventory.png" width="45%" />
+  <img src="screenshots/acp.png" width="45%" />
+</p>
+
+<p align="center">
+  <img src="screenshots/acp_add_item.png" width="45%" />
+</p>
 
 ---
 ## ⚙️ Features
