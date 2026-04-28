@@ -107,6 +107,7 @@ DATABASE_URL="mysql://root:root@db:3306/roulette?serverVersion=8.3&charset=utf8m
 STEAM_API_KEY=your_steam_api_key
 FRONTEND_URL=http://localhost:5173
 VITE_API_URL=http://localhost:8080
+GAME_API_TOKEN=your_game_api_token
  ```
 Steam API key can be generated here:
 `https://steamcommunity.com/dev/apikey`
@@ -158,6 +159,7 @@ http://localhost:8080
 | Method | Path | Description | Role |
 |--------|------|------------|------|
 | GET | /api/inventory | Get user inventory (grouped items with quantity) | authenticated |
+| POST | /api/inventory/claim | Claim item from user inventory via game_api_token | authenticated |
 | GET | /api/me | Get current logged user data (profile, balance, etc.) | authenticated |
 | POST | /api/roll | Roll item from roulette | authenticated |
 | GET | /api/admin/items | Get all items (ACP + frontend) | admin |
@@ -216,6 +218,19 @@ Example:
 php bin/console app:make-admin 76561198000000000
 ```
 ➡️ Adds `ROLE_ADMIN` to user
+
+### 📦 Clear user inventory
+Delete items in user inventory:
+
+```bash
+php bin/console app:clear-inventory <steamid>
+```
+
+Example:
+```bash
+php bin/console app:clear-inventory 76561198000000000
+```
+➡️ Delete every item in user inventory
 
 
 ---
