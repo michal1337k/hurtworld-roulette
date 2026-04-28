@@ -31,7 +31,7 @@ To ensure the application works fully and is compatible with the game, you need 
 ---
 ## 🎥 Presentation:
 👉 YouTube demo:
-[didnt record this yet lol]
+[[YOUTUBE LINK]](https://www.youtube.com/watch?v=7JRPXWC2aTA)
 
 ### 📸 Screenshots
 
