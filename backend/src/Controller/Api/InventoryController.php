@@ -51,6 +51,52 @@ final class InventoryController extends AbstractController
         return $this->json(array_values($grouped));
     }
     
+    #[Route('/api/inventory/game', name: 'api_inventory_game', methods: ['POST'])]
+    public function gameInventory(Request $request,UserRepository $userRepository): JsonResponse 
+    {
+        if (!$this->isValidGameToken($request)) {
+            return $this->json(['error' => 'Unauthorized'], 403);
+        }
+
+        $data = json_decode($request->getContent(), true);
+
+        if (!is_array($data)) {
+            return $this->json(['error' => 'Invalid JSON'], 400);
+        }
+
+        $steamId = $data['steam_id'] ?? null;
+
+        if (!$steamId) {
+            return $this->json(['error' => 'Missing steam_id'], 400);
+        }
+
+        $user = $userRepository->find($steamId);
+
+        if (!$user) {
+            return $this->json(['error' => 'User not found'], 404);
+        }
+
+        $grouped = [];
+
+        foreach ($user->getInventories() as $inv) {
+            $item = $inv->getItem();
+            $itemId = $item->getId();
+
+            if (!isset($grouped[$itemId])) {
+                $grouped[$itemId] = [
+                    'id' => $itemId,
+                    'name' => $item->getName(),
+                    'game_item_id' => $item->getGameItemId(),
+                    'count' => 0,
+                ];
+            }
+
+            $grouped[$itemId]['count'] += $inv->getCount();
+        }
+
+        return $this->json(array_values($grouped));
+    }
+
     #[Route('/api/inventory/claim', name: 'api_inventory_claim', methods: ['POST'])]
     public function claim(Request $request, UserRepository $userRepository, ItemRepository $itemRepository, InventoryRepository $inventoryRepository, EntityManagerInterface $em): JsonResponse 
     {

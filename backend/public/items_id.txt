@@ -1,0 +1,253 @@
+ID'S LIST FOR HURTWORLD LEGACY
+
+
+ID NAZWA
+
+2 Schowek
+3 Stół do wytwarzania
+4 Surowy Stek
+5 Upieczony stek
+6 Zjełczały stek
+7 Bolt
+13 Rubin
+17 Krzemień
+18 Ruda Zelaza
+19 Kamien
+20 Węgiel
+21 Kłoda
+22 Deska
+23 Tłuszcz Zwierzęcy
+25 Owrongi
+26 Nasiona Owronga
+27 Kora
+28 Glina
+30 Żelazny kilof
+31 Ognisko
+34 Ścięgno zwierzęce
+35 Słaby sznur
+36 Ukształtowane żelazo
+42 Wapień
+44 Beton
+45 Mocny sznur
+47 Drewniany łuk
+48 Strzała
+49 Łuk myśliwski
+50 Spleśniały owrong
+51 Popiół
+52 Nabój
+53 Piec hutniczy
+68 Żółta kurtka
+69 Żółte spodnie
+70 Kalosze
+71 Maska Gazowa
+72 Rękawiczki
+78 Żelazna siekiera
+79 Złota siekiera
+80 Czerwony kilof
+81 Niebieski kilof
+82 Łuk spowalniający
+85 Skóra
+87 Bursztyn
+88 Plecak
+89 Krzemienna siekiera
+90 Plecak Debug
+91 Młot
+92 Łuk samochodowy
+93 Oznaczenie własności
+94 Ciepłe dżinsy
+95 Brązowa bluza
+96 Podstawowe buty
+98 M4 Auto
+102 Czapka podstawowa
+103 Włosy Emo
+104 Grey Sneakers
+105 Dirtyer Doubleshirt
+107 Brown TShirt
+109 Gray TShirt
+110 Green TShirt
+111 White TShirt
+112 Poo TShirt
+113 HairColor2
+114 HairColor3
+116 Czapka2
+117 Czapka3
+119 Brown Sneakers
+122 Repair Bow
+123 Roach Builder
+125 Strzelba
+127 Wiertło
+128 Podstawowa włócznia
+129 Szara kurtka
+130 Czerwona kurtka
+131 Ruda Czerwonego
+132 Ruda Zielonego
+133 Ruda Niebieskiego
+134 Ukształtowane Czerwone
+135 Ukształtowane Zielone
+136 Ukształtowane Niebieskie
+137 Zielony kilof
+138 Mining Bow
+139 Kamienny kilof
+140 Podstawowe dżinsy
+141 Shitty TShirt
+142 Kompas
+143 Goat Builder
+144 C4
+146 Łuk kary
+147 Benzyna
+148 Magnes ziemny
+149 Lodówka
+150 Zamrożony surowy stek
+151 Zamrożony upieczony stek
+152 Surowe chłodziwo
+153 Nasiona pitcher'a
+154 Ognisko
+155 Dynamit
+162 Roach Triple Door Panel
+163 Roach 44 Galon Armor
+164 Roach Skull Bumper
+165 Roach Roof Lights
+166 Sand Hopper koło
+167 Billycart koło
+169 Medium Suspension
+171 800 do auta
+172 900 do auta
+173 1100 do auta
+174 Skrzynia 100 do auta
+175 Skrzynia 140 do auta
+176 200 do auta
+178 Roach Default Design
+179 Roach Swirler Paint Design
+180 Goat Camo Paint Design
+181 Goat Flames Paint Design
+182 Goat Side Stripe Paint Design
+183 Goat Skull Paint Design
+184 Quadbike Nipple koło
+185 Goat Judge Frontpanel
+186 Goat Judge Backpanel
+187 Goat Stasher Frontpanel
+188 Goat Stasher Backpanel
+189 Goat Racer Frontpanel
+190 Goat Racer Backpanel
+191 Nabój śrutowy
+192 Drifting Sand Hopper
+193 Roach Front Seat
+194 Roach Sharkweek Bumper
+195 Roach Sharkweek Hood
+196 Roach Sharkweek Side Panel
+197 Roach Sharkweek Roof Scoop
+198 Roach Sharkweek Rear Panel
+199 Roach Chaser Bumper
+200 Roach Chaser Hood
+201 Roach Chaser Side Panel
+202 Roach Chaser Roof Scoop
+203 Roach Chaser Rear Panel
+204 Roach 1986 Design
+205 Roach Digital Camo Design
+206 Roach Eyes Design
+207 Roach Graff Design
+213 Olejek do opalania
+214 Aussie Hat
+215 Napromieniowane nasiona
+216 Flannel Shirt
+217 Singlet
+218 Singlet
+219 Kask
+220 Sombrero
+221 Mullet
+222 Goat Twin Stripes Paint Design
+223 Goat Flat Paint Design
+224 Goat Maze Paint Design
+225 M4 Półautomat
+226 Lodowa włócznia
+227 Molten Spear
+228 Ostra włócznia
+229 Arktyczna skóra
+230 Skóra z Sasquach
+231 Detonator
+232 Farba #001
+233 Farba #002
+234 Farba #003
+235 Farba #004
+236 Farba #005
+237 Farba #006
+238 Farba #007
+239 Farba #008
+240 Farba #009
+241 Farba #010
+242 Farba #011
+243 Farba #012
+244 Farba #013
+245 Farba #014
+246 Farba #015
+247 Farba #016
+248 Farba #017
+249 Farba #018
+250 Farba #019
+251 Farba #020
+252 Farba #021
+253 Farba #022
+254 Farba #023
+255 Farba #024
+256 Farba #025
+257 Farba #026
+258 Farba #027
+259 Farba #028
+260 Farba #029
+261 Farba #030
+262 Farba #031
+263 Farba #032
+264 Farba #033
+265 Farba #034
+266 Farba #035
+267 Farba #036
+268 Farba #037
+269 Róg Yeti
+270 Pióro A
+271 Pióro B
+272 Koszyk
+273 Mina
+274 Trująca pułapka
+275 Nasiona Medusy
+276 Plecak z Bora
+277 Plecak z napromieniowanego Bora
+278 Nabój do karabinu automatycznego
+279 Pistolet
+280 Nabój do pistoletu
+281 Ushanka
+282 Maska shigi
+283 Maska ze śnieżnego shigi
+284 Maska z wilka shigi
+285 Maska z leśnego shigi
+286 Maska z bora
+287 Maska z napromieniowanego bora
+288 Maska z Tokara
+289 Maska z Tokara Albinosa
+290 Maska z Niebieskiego Tokara
+291 Maska z Papugi Tokara
+292 Maska z Yeti
+293 Maska z Sasquacha
+294 Napromieniowane nasiona
+295 Worek z trucizną
+296 Legenda do quada
+297 800 do quada
+298 900 do quada
+299 200 do quada
+300 Skrzynia 100 do quada
+301 Skrzynia 140 do quada
+302 Czyste golenie
+303 Łysina
+304 Klucz pojazdu
+305 Toretto koło
+306 Mangler koło
+307 Wiertło górnicze czerwona pustynia
+308 Wiertło
+309 Fabrykator
+310 Znak
+311 Pistolet sygnałowy
+312 Wiertło górnicze śnieg
+313 Wyrzutnia rakiet
+314 Klucz maszyny
+315 Pochodnia
+316 Ognisko
+317 Buda
