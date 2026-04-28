@@ -11,7 +11,7 @@
       <ul>
         <li>
           <code>/ruletka odbierz all</code>
-          <span>odbiera wszystkie przedmioty, maksymalnie 5 na raz</span>
+          <span>odbiera wszystkie przedmioty, maksymalnie 3 na raz</span>
         </li>
 
         <li>
