@@ -22,6 +22,9 @@ class Inventory
     private User $player;
 
     #[ORM\Column]
+    private int $count = 1;
+
+    #[ORM\Column]
     private ?\DateTimeImmutable $createdAt;
 
     public function __construct()
@@ -34,26 +37,38 @@ class Inventory
         return $this->id;
     }
 
-    public function getItem(): ?item
+    public function getItem(): ?Item
     {
         return $this->item;
     }
 
-    public function setItem(?item $item): static
+    public function setItem(?Item $item): static
     {
         $this->item = $item;
 
         return $this;
     }
 
-    public function getPlayer(): ?user
+    public function getPlayer(): ?User
     {
         return $this->player;
     }
 
-    public function setPlayer(?user $player): static
+    public function setPlayer(?User $player): static
     {
         $this->player = $player;
+
+        return $this;
+    }
+
+    public function getCount(): int
+    {
+        return $this->count;
+    }
+
+    public function setCount(int $count): static
+    {
+        $this->count = $count;
 
         return $this;
     }

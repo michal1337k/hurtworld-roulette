@@ -51,6 +51,7 @@ final class RouletteController extends AbstractController
         $inventory = new Inventory();
         $inventory->setPlayer($user);
         $inventory->setItem($wonItem);
+        $inventory->setCount($wonItem->getCount());
 
         $em->persist($inventory);
         $em->flush();
