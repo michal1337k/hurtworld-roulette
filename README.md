@@ -4,6 +4,12 @@ Web application inspired by CS:GO-style roulette systems, built with **Symfony (
 
 Users can roll items, manage inventory, and admins can configure drop chances via an ACP panel.
 
+# ⚠️ Important Information
+
+To ensure the application works fully and is compatible with the game, you need to download, install, and configure the `Roulette.cs` plugin from this repository: 
+
+👉 https://github.com/michal1337k/roulette_hurtworld_plugin
+
 ## 🚀 Technologies:
 ### Backend
 - Symfony 6+
