@@ -87,7 +87,10 @@ Items can be redeemed in-game using commands:
 - `<nazwa>` → item name (visible on hover in inventory)
 
 ---
-## 🖼️ Icons (IMPORTANT)
+## 🖼️ Icons and Items Id's (IMPORTANT)
+All game items id's are availible in:
+`/backend/public/items_id.txt`
+
 All game item icons are available in:
 `/backend/public/all_icons`
 
