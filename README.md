@@ -4,6 +4,8 @@ Web application inspired by CS:GO-style roulette systems, built with **Symfony (
 
 Users can roll items, manage inventory, and admins can configure drop chances via an ACP panel.
 
+This is a development version and may be updated, upgraded, and have bugs fixed over time. In its current state, the application works well, but it will definitely be improved - for example, by adding more features such as drawing 5 items at once, etc.
+
 # ⚠️ Important Information
 
 To ensure the application works fully and is compatible with the game, you need to download, install, and configure the `Roulette.cs` plugin from this repository: 
